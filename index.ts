@@ -64,12 +64,14 @@ export class HooksAttacher {
      * Register each provided hook definition using the corresponding Hooks API method.
      * @param hookDefinitions Mapping of hook method to a hook definition.
      */
-    static attachHooks(hookDefinitions: HookDefinitions) {
-        for (const [hookName, hookDef] of Object.entries(hookDefinitions)) {
-            const hookFunc = Hooks[hookName as HookType] as (a: any, b: any, c: any) => any;
-            const hookDefArr = Array.isArray(hookDef) ? hookDef : [hookDef];
-            for (const def of hookDefArr) {
-                hookFunc.call(Hooks, def.name, def.callback, def.options);
+    static attachHooks(hookDefinitionsSet: HookDefinitions[]) {
+        for (const hookDefinitions of hookDefinitionsSet) {
+            for (const [hookName, hookDef] of Object.entries(hookDefinitions) as [HookType, AnyHookDefinition | AnyHookDefinition[]][]) {
+                const hookFunc = Hooks[hookName] as (a: any, b: any, c: any) => any;
+                const hookDefArr = Array.isArray(hookDef) ? hookDef : [hookDef];
+                for (const def of hookDefArr) {
+                    hookFunc.call(Hooks, def.name, def.callback, def.options);
+                }
             }
         }
     }
