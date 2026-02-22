@@ -2,6 +2,8 @@
 
 A small helper to declare hooks and attach them in Foundry VTT.
 
+**Bonus:** The project will migrate foward more QoL code tool.
+
 ## Install
 
 - Add [foundry-vtt-types](https://github.com/League-of-Foundry-Developers/foundry-vtt-types) to your module dependency.
