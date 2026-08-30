@@ -22,7 +22,7 @@ export default class FieldBuilder<T extends DataSchema> {
      * @param inputConfigOverride Optional input configuration overrides.
      * @returns The HTMLDivElement representing the form group.
      */
-    get<TFieldName extends keyof T>(fieldName: TFieldName, inputConfig?: DataField.ToInputConfig<DataField.InitializedTypeFor<T[TFieldName]>>) {
+    get<TFieldName extends keyof T>(fieldName: TFieldName, inputConfig?: DataField.ToInputConfig<T[TFieldName]>) {
         const field = this.schema[fieldName];
         const config = foundry.utils.mergeObject({ value: this.data[fieldName] }, inputConfig ?? {});
         return field.toFormGroup(
